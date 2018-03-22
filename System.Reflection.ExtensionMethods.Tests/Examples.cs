@@ -9,18 +9,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace System.Reflection.ExtensionMethods.Tests
 {
     [TestClass]
-    public class Requirements
+    public class Examples
     {
-        protected MethodInfo GetRequirement (string name) {
-            var type = typeof(Requirement);
-            var method = type.GetMethod(name);
-
-            return method;
-        }
-
         [TestMethod]
         public void Example_Signature() {
-            var type = typeof(Requirements);
+            var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod));
 
             var signature = method.GetSignature(false);
@@ -30,7 +23,7 @@ namespace System.Reflection.ExtensionMethods.Tests
 
         [TestMethod]
         public void Example_Signature_Invokable() {
-            var type = typeof(Requirements);
+            var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod));
 
             var signature = method.GetSignature(true);
@@ -40,7 +33,7 @@ namespace System.Reflection.ExtensionMethods.Tests
 
         [TestMethod]
         public void Example_Signature_Generics() {
-            var type  = typeof(Requirements);
+            var type  = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod2));
 
             var signature = method.GetSignature(false);
@@ -50,7 +43,7 @@ namespace System.Reflection.ExtensionMethods.Tests
 
         [TestMethod]
         public void Example_Signature_Generics_Invokable() {
-            var type  = typeof(Requirements);
+            var type  = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod2));
 
             var signature = method.GetSignature(true);
@@ -60,7 +53,7 @@ namespace System.Reflection.ExtensionMethods.Tests
 
         [TestMethod]
         public void Example_Signature_Generics_Nested() {
-            var type = typeof(Requirements);
+            var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod3));
 
             var signature = method.GetSignature(false);
@@ -70,7 +63,7 @@ namespace System.Reflection.ExtensionMethods.Tests
 
         [TestMethod]
         public void Example_Signature_Nullable() {
-            var type = typeof(Requirements);
+            var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod4));
 
             var signature = method.GetSignature(false);
@@ -80,7 +73,7 @@ namespace System.Reflection.ExtensionMethods.Tests
 
         [TestMethod]
         public void Example_Signature_Accessor() {
-            var type = typeof(Requirements);
+            var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod5), BindingFlags.Static | BindingFlags.NonPublic);
 
             var signature = method.GetSignature(false);

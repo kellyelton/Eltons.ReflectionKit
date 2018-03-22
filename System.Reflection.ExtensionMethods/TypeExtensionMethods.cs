@@ -4,7 +4,6 @@
 
 namespace System.Reflection
 {
-
     public static class TypeExtensionMethods
     {
         public static bool IsNullable(this Type type, out Type underlyingType) {
