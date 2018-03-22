@@ -3,9 +3,52 @@ Rewrite of code I posted here https://stackoverflow.com/a/13318056/222054
 
 This is an extension method on `MethodInfo` called `GetSignature(bool invokable)`
 
+## Features
+* Can generate signatures that are valid in class definitions 
+    * `public static void GetResult(string a, string b)`
+* Can generate signatures that can be invoked
+    * `GetResult(a, b)`
+* Fully qualifies type names
+    * `Exception` becomes `System.Exception`
+* Simplifies types with keywords
+    * `String` becomes `string`, `Nullable<T>` becomes `T?`
+* Handles nested generics
+    * The following works `public List<Dictionary<string, string>> TransformInputs<T>(List<string> inputs)`
+* Works with extension methods
+    * `public static string GetName(this User user)` or if invokable `GetName()`
+* Works with protection modifiers
+    * `internal` `public` `private` `protected` `internal protected`
+
+
+## How To
+
+```cs
+using System;
+using System.Collections.Generic;
+
+namespace MyProject
+{
+    public class App
+    {
+        public static void Main(string[] args) {
+            var type = typeof(App);
+            var method = type.GetMethod(nameof(TestMethod));
+
+            // Outputs `public string TestMethod(string firstParam)`
+            Console.WriteLine(method.GetSignature(false));
+        }
+        
+        public string TestMethod(string firstParam) {
+            throw new NotImplementedException();
+        }
+    }
+}
+```
+
+## Examples
 For ideas on how to use this, please view the [Examples](https://github.com/kellyelton/System.Reflection.ExtensionMethods/blob/master/System.Reflection.ExtensionMethods.Tests/Examples.cs)
 
-I've added the Examples.cs class here for a quick reference
+I've added the [Examples.cs](https://github.com/kellyelton/System.Reflection.ExtensionMethods/blob/master/System.Reflection.ExtensionMethods.Tests/Examples.cs) class here for a quick reference
 
 ```cs
 /* This Source Code Form is subject to the terms of the Mozilla Public
