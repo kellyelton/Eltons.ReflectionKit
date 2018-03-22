@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace System.Reflection
@@ -43,21 +44,9 @@ namespace System.Reflection
         /// <param name="genericArgumentTypes"></param>
         /// <returns>Generic type signature like &lt;Type, ...&gt;</returns>
         public static string BuildGenericSignature(IEnumerable<Type> genericArgumentTypes) {
-            var firstParam = true;
+            var argumentSignatures = genericArgumentTypes.Select(GetSignature);
 
-            var signatureBuilder = new StringBuilder();
-
-            signatureBuilder.Append("<");
-            foreach (var g in genericArgumentTypes) {
-                if (firstParam)
-                    firstParam = false;
-                else
-                    signatureBuilder.Append(", ");
-                signatureBuilder.Append(TypeSignatureTools.GetSignature(g));
-            }
-            signatureBuilder.Append(">");
-
-            return signatureBuilder.ToString();
+            return "<" + string.Join(", ", argumentSignatures) + ">";
         }
     }
 }
