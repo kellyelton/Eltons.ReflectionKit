@@ -40,6 +40,8 @@ namespace System.Reflection
                     return "object";
                 case "Void":
                     return "void";
+                case "Boolean":
+                    return "bool";
             }
 
             //TODO: Figure out how type.FullName could be null and document (or remove) this conditional

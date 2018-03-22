@@ -9,23 +9,26 @@ namespace System.Reflection
 {
     public static class MethodSignatureTools
     {
-        public static string GetInvocationSignature(this MethodInfo method, bool invokable) {
+        public static string GetSignature(this MethodInfo method, bool invokable) {
 
             var signatureBuilder = new StringBuilder();
 
             // Add our method accessors if it's not invokable
             if (!invokable) {
                 signatureBuilder.Append(GetMethodAccessorSignature(method));
+                signatureBuilder.Append(" ");
             }
 
             // Add method name
             signatureBuilder.Append(method.Name);
 
             // Add method generics
-            signatureBuilder.Append(GetGenericSignature(method));
+            if (method.IsGenericMethod) {
+                signatureBuilder.Append(GetGenericSignature(method));
+            }
 
             // Add method parameters
-            signatureBuilder.Append(GetMethodArgumentsSignature(method, true));
+            signatureBuilder.Append(GetMethodArgumentsSignature(method, invokable));
 
             return signatureBuilder.ToString();
         }
@@ -33,18 +36,21 @@ namespace System.Reflection
         public static string GetMethodAccessorSignature(this MethodInfo method) {
             string signature = null;
 
-            if (method.IsPublic)
-                signature = "public ";
-            else if (method.IsPrivate)
-                signature = "private ";
-            else if (method.IsAssembly)
+            if (method.IsAssembly) {
                 signature = "internal ";
 
-            if (method.IsFamily)
+                if (method.IsFamily)
+                    signature += "protected ";
+            } else if (method.IsPublic) {
+                signature = "public ";
+            } else if (method.IsPrivate) {
+                signature = "private ";
+            } else if (method.IsFamily) {
                 signature = "protected ";
+            }
 
             if (method.IsStatic)
-                signature = "static ";
+                signature += "static ";
 
             signature += TypeSignatureTools.GetSignature(method.ReturnType);
 
@@ -75,7 +81,7 @@ namespace System.Reflection
                     signature = "ref ";
                 else if (param.IsOut)
                     signature = "out ";
-                else if (isExtensionMethod)
+                else if (isExtensionMethod && param.Position == 0)
                     signature = "this ";
 
                 if (!invokable) {
