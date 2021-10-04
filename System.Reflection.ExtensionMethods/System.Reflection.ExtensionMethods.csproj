@@ -16,7 +16,7 @@ It prints the full signature of a method from a MethodInfo.</Description>
     <AnalysisLevel>latest</AnalysisLevel>
     <Authors>kellyelton</Authors>
     <Company />
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>MPL</PackageLicenseExpression>
     <Version>1.1.0</Version>
   </PropertyGroup>
 
