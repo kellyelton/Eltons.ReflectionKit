@@ -3,6 +3,9 @@ Rewrite of code I posted here https://stackoverflow.com/a/13318056/222054
 
 This is an extension method on `MethodInfo` called `GetSignature(bool invokable)`
 
+Install via nuget
+* Eltons.ReflectionKit [![NuGet](https://img.shields.io/nuget/v/Eltons.ReflectionKit.svg?style=flat-square)](https://www.nuget.org/packages/Eltons.ReflectionKit/) 
+
 ## Features
 * Can generate signatures that are valid in class definitions 
     * `public static void GetResult(string a, string b)`
@@ -21,9 +24,6 @@ This is an extension method on `MethodInfo` called `GetSignature(bool invokable)
 
 
 ## How To
-
-Install via nuget
-* Eltons.ReflectionKit [![NuGet](https://img.shields.io/nuget/v/Eltons.ReflectionKit.svg?style=flat-square)](https://www.nuget.org/packages/Eltons.ReflectionKit/) 
 
 ```cs
 using System;
