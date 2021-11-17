@@ -22,6 +22,9 @@ This is an extension method on `MethodInfo` called `GetSignature(bool invokable)
 
 ## How To
 
+Install via nuget
+* Eltons.ReflectionKit [![NuGet](https://img.shields.io/nuget/v/Eltons.ReflectionKit.svg?style=flat-square)](https://www.nuget.org/packages/Eltons.ReflectionKit/) 
+
 ```cs
 using System;
 using Eltons.ReflectionKit;
