@@ -2,23 +2,51 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace System.Reflection
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Eltons.ReflectionKit
 {
-    public static class TypeExtensionMethods
+    public static class TypeSignature
     {
-        public static bool IsNullable(this Type type, out Type underlyingType) {
-            underlyingType = Nullable.GetUnderlyingType(type);
-            return underlyingType != null;
+        /// <summary>
+        /// Get a fully qualified signature for <paramref name="type"/>
+        /// </summary>
+        /// <param name="type">Type. May be generic or <see cref="Nullable{T}"/></param>
+        /// <returns>Fully qualified signature</returns>
+        public static string Build(Type type) {
+            var isNullableType = type.IsNullable(out var underlyingNullableType);
+
+            var signatureType = isNullableType
+                ? underlyingNullableType
+                : type;
+
+            var isGenericType = signatureType.IsGeneric();
+
+            var signature = GetQualifiedTypeName(signatureType);
+
+            if (isGenericType) {
+                // Add the generic arguments
+                signature += BuildGenerics(signatureType.GetGenericArguments());
+            }
+
+            if (isNullableType) {
+                signature += "?";
+            }
+
+            return signature;
         }
 
         /// <summary>
-        /// Is this type a generic type
+        /// Takes an <see cref="IEnumerable{T}"/> and creates a generic type signature (&lt;string, string&gt; for example)
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns>True if generic, otherwise False</returns>
-        public static bool IsGeneric(this Type type) {
-            return type.IsGenericType
-                && type.Name.Contains("`");//TODO: Figure out why IsGenericType isn't good enough and document (or remove) this condition
+        /// <param name="genericArgumentTypes"></param>
+        /// <returns>Generic type signature like &lt;Type, ...&gt;</returns>
+        public static string BuildGenerics(IEnumerable<Type> genericArgumentTypes) {
+            var argumentSignatures = genericArgumentTypes.Select(Build);
+
+            return "<" + string.Join(", ", argumentSignatures) + ">";
         }
 
         /// <summary>
@@ -48,7 +76,7 @@ namespace System.Reflection
                 ? type.Name
                 : type.FullName;
 
-            if(IsGeneric(type))
+            if(type.IsGeneric())
                 signature = RemoveGenericTypeNameArgumentCount(signature);
 
             return signature;

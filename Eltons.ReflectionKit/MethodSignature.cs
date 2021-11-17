@@ -4,18 +4,20 @@
 
 using System.Text;
 using System.Linq;
+using System.Reflection;
+using System;
 
-namespace System.Reflection
+namespace Eltons.ReflectionKit
 {
-    public static class MethodSignatureTools
+    public static class MethodSignature
     {
-        public static string GetSignature(this MethodInfo method, bool invokable) {
-
+        public static string Build(MethodInfo method, bool invokable) {
             var signatureBuilder = new StringBuilder();
 
             // Add our method accessors if it's not invokable
             if (!invokable) {
-                signatureBuilder.Append(GetMethodAccessorSignature(method));
+                signatureBuilder.Append(BuildAccessor(method));
+                signatureBuilder.Append(TypeSignature.Build(method.ReturnType));
                 signatureBuilder.Append(" ");
             }
 
@@ -24,16 +26,16 @@ namespace System.Reflection
 
             // Add method generics
             if (method.IsGenericMethod) {
-                signatureBuilder.Append(GetGenericSignature(method));
+                signatureBuilder.Append(BuildGenerics(method));
             }
 
             // Add method parameters
-            signatureBuilder.Append(GetMethodArgumentsSignature(method, invokable));
+            signatureBuilder.Append(BuildArguments(method, invokable));
 
             return signatureBuilder.ToString();
         }
 
-        public static string GetMethodAccessorSignature(this MethodInfo method) {
+        public static string BuildAccessor(MethodInfo method) {
             string signature = null;
 
             if (method.IsAssembly) {
@@ -52,19 +54,17 @@ namespace System.Reflection
             if (method.IsStatic)
                 signature += "static ";
 
-            signature += TypeSignatureTools.GetSignature(method.ReturnType);
-
             return signature;
         }
 
-        public static string GetGenericSignature(this MethodInfo method) {
+        public static string BuildGenerics(MethodInfo method) {
             if (method == null) throw new ArgumentNullException(nameof(method));
             if (!method.IsGenericMethod) throw new ArgumentException($"{method.Name} is not generic.");
 
-            return TypeSignatureTools.BuildGenericSignature(method.GetGenericArguments());
+            return TypeSignature.BuildGenerics(method.GetGenericArguments());
         }
 
-        public static string GetMethodArgumentsSignature(this MethodInfo method, bool invokable) {
+        public static string BuildArguments(MethodInfo method, bool invokable) {
             var isExtensionMethod = method.IsDefined(typeof(System.Runtime.CompilerServices.ExtensionAttribute), false);
             var methodParameters = method.GetParameters().AsEnumerable();
 
@@ -85,7 +85,7 @@ namespace System.Reflection
                     signature = "this ";
 
                 if (!invokable) {
-                    signature += TypeSignatureTools.GetSignature(param.ParameterType) + " ";
+                    signature += TypeSignature.Build(param.ParameterType) + " ";
                 }
 
                 signature += param.Name;

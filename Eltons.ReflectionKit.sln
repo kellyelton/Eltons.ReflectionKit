@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Reflection.ExtensionMethods", "System.Reflection.ExtensionMethods\System.Reflection.ExtensionMethods.csproj", "{B3A4D6D2-6B09-44B7-8505-3D586FAFA430}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eltons.ReflectionKit", "Eltons.ReflectionKit\Eltons.ReflectionKit.csproj", "{B3A4D6D2-6B09-44B7-8505-3D586FAFA430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Reflection.ExtensionMethods.Tests", "System.Reflection.ExtensionMethods.Tests\System.Reflection.ExtensionMethods.Tests.csproj", "{C6A0E1B0-104C-4A1F-B59B-F9694CC04C89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eltons.ReflectionKit.Tests", "Eltons.ReflectionKit.Tests\Eltons.ReflectionKit.Tests.csproj", "{C6A0E1B0-104C-4A1F-B59B-F9694CC04C89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

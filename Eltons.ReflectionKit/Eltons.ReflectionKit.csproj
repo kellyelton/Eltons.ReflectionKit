@@ -6,9 +6,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>This is an extension method on MethodInfo called GetSignature(bool invokable).
 It prints the full signature of a method from a MethodInfo.</Description>
-    <PackageProjectUrl>https://github.com/kellyelton/System.Reflection.ExtensionMethods</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/kellyelton/Eltons.ReflectionKit</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/kellyelton/System.Reflection.ExtensionMethods</RepositoryUrl>
+    <RepositoryUrl>https://github.com/kellyelton/Eltons.ReflectionKit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>MethodInfo</PackageTags>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>

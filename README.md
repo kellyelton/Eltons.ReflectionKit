@@ -1,4 +1,4 @@
-# System.Reflection.ExtensionMethods
+# Eltons.ReflectionKit
 Rewrite of code I posted here https://stackoverflow.com/a/13318056/222054
 
 This is an extension method on `MethodInfo` called `GetSignature(bool invokable)`
@@ -24,6 +24,7 @@ This is an extension method on `MethodInfo` called `GetSignature(bool invokable)
 
 ```cs
 using System;
+using Eltons.ReflectionKit;
 using System.Collections.Generic;
 
 namespace MyProject
@@ -46,9 +47,9 @@ namespace MyProject
 ```
 
 ## Examples
-For ideas on how to use this, please view the [Examples](https://github.com/kellyelton/System.Reflection.ExtensionMethods/blob/master/System.Reflection.ExtensionMethods.Tests/Examples.cs)
+For ideas on how to use this, please view the [Examples](https://github.com/kellyelton/Eltons.ReflectionKit/blob/master/Eltons.ReflectionKit.Tests/Examples.cs)
 
-I've added the [Examples.cs](https://github.com/kellyelton/System.Reflection.ExtensionMethods/blob/master/System.Reflection.ExtensionMethods.Tests/Examples.cs) class here for a quick reference
+I've added the [Examples.cs](https://github.com/kellyelton/Eltons.ReflectionKit/blob/master/Eltons.ReflectionKit.Tests/Examples.cs) class here for a quick reference
 
 ```cs
 /* This Source Code Form is subject to the terms of the Mozilla Public
@@ -56,10 +57,11 @@ I've added the [Examples.cs](https://github.com/kellyelton/System.Reflection.Ext
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 using System;
+using Eltons.ReflectionKit;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace System.Reflection.ExtensionMethods.Tests
+namespace Eltons.ReflectionKit.Tests
 {
     [TestClass]
     public class Examples

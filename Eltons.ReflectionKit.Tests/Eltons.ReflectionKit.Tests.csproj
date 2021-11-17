@@ -7,8 +7,8 @@
     <ProjectGuid>{C6A0E1B0-104C-4A1F-B59B-F9694CC04C89}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>System.Reflection.ExtensionMethods.Tests</RootNamespace>
-    <AssemblyName>System.Reflection.ExtensionMethods.Tests</AssemblyName>
+    <RootNamespace>Eltons.ReflectionKit.Tests</RootNamespace>
+    <AssemblyName>Eltons.ReflectionKit.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\System.Reflection.ExtensionMethods\System.Reflection.ExtensionMethods.csproj">
+    <ProjectReference Include="..\Eltons.ReflectionKit\Eltons.ReflectionKit.csproj">
       <Project>{b3a4d6d2-6b09-44b7-8505-3d586fafa430}</Project>
-      <Name>System.Reflection.ExtensionMethods</Name>
+      <Name>Eltons.ReflectionKit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

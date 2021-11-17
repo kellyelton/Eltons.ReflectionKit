@@ -4,9 +4,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using Eltons.ReflectionKit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace System.Reflection.ExtensionMethods.Tests
+namespace Eltons.ReflectionKit.Tests
 {
     [TestClass]
     public class Examples
