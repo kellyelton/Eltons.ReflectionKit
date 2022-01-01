@@ -6,11 +6,11 @@ using System.Reflection;
 
 namespace Eltons.ReflectionKit
 {
-    public static class MethodExtensionMethods
+    public static class ConstructorInfoExtensionMethods
     {
-        public static string GetSignature(this MethodInfo method, bool isInvokable)
+        public static string GetSignature(this ConstructorInfo constructor, bool isInvokable)
         {
-            return new MethodSignature().Build(method, isInvokable);
+            return new ConstructorMethodSignature().Build(constructor, isInvokable);
         }
     }
 }
