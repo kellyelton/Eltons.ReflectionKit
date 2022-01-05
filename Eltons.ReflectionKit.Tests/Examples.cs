@@ -99,7 +99,7 @@ namespace Eltons.ReflectionKit.Tests
             var type = typeof(TestExtensionMethods);
             var method = type.GetMethod(nameof(TestExtensionMethods.ExtensionMethod));
 
-            var signature = method.GetSignature(true);
+            var signature = method.GetSignature(false);
 
             Assert.AreEqual("public static string ExtensionMethod(this string firstParam, bool secondParam)", signature);
         }
@@ -143,7 +143,7 @@ namespace Eltons.ReflectionKit.Tests
             var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod3));
 
-            var signature = method.GetSignature(true);
+            var signature = method.GetSignature(false);
 
             Assert.AreEqual("public void TestMethod3(System.Action<System.Action<System.Action<string>>> firstParam)", signature);
         }
@@ -154,7 +154,7 @@ namespace Eltons.ReflectionKit.Tests
             var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod));
 
-            var signature = method.GetSignature(false);
+            var signature = method.GetSignature(true);
 
             Assert.AreEqual("TestMethod(firstParam)", signature);
         }
