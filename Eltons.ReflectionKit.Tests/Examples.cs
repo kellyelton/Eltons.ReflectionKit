@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,6 +22,22 @@ namespace Eltons.ReflectionKit.Tests
     [TestClass]
     public class Examples
     {
+        public Examples(int param)
+        {
+        }
+
+        public Examples()
+        {
+        }
+
+        protected Examples(int param1, int param2)
+        {
+        }
+
+        private Examples(int param1, int param2, int param3)
+        {
+        }
+
         [TestMethod]
         public void Example_Signature()
         {
@@ -44,12 +61,45 @@ namespace Eltons.ReflectionKit.Tests
         }
 
         [TestMethod]
+        public void Example_Signature_Constructor()
+        {
+            var type = typeof(Examples);
+            var method = type.GetConstructors((BindingFlags)~0).Single(ctor => ctor.GetParameters().Count() == 1);
+
+            var signature = method.GetSignature(false);
+
+            Assert.AreEqual("public Examples(int param)", signature);
+        }
+
+        [TestMethod]
+        public void Example_Signature_Constructor_WithPrivateAccessor()
+        {
+            var type = typeof(Examples);
+            var method = type.GetConstructors((BindingFlags)~0).Single(ctor => ctor.GetParameters().Count() == 3);
+
+            var signature = method.GetSignature(false);
+
+            Assert.AreEqual("private Examples(int param1, int param2, int param3)", signature);
+        }
+
+        [TestMethod]
+        public void Example_Signature_Constructor_WithProtectedAccessor()
+        {
+            var type = typeof(Examples);
+            var method = type.GetConstructors((BindingFlags)~0).Single(ctor => ctor.GetParameters().Count() == 2);
+
+            var signature = method.GetSignature(false);
+
+            Assert.AreEqual("protected Examples(int param1, int param2)", signature);
+        }
+
+        [TestMethod]
         public void Example_Signature_ExtensionMethod()
         {
             var type = typeof(TestExtensionMethods);
             var method = type.GetMethod(nameof(TestExtensionMethods.ExtensionMethod));
 
-            var signature = method.GetSignature(false);
+            var signature = method.GetSignature(true);
 
             Assert.AreEqual("public static string ExtensionMethod(this string firstParam, bool secondParam)", signature);
         }
@@ -93,7 +143,7 @@ namespace Eltons.ReflectionKit.Tests
             var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod3));
 
-            var signature = method.GetSignature(false);
+            var signature = method.GetSignature(true);
 
             Assert.AreEqual("public void TestMethod3(System.Action<System.Action<System.Action<string>>> firstParam)", signature);
         }
@@ -104,7 +154,7 @@ namespace Eltons.ReflectionKit.Tests
             var type = typeof(Examples);
             var method = type.GetMethod(nameof(TestMethod));
 
-            var signature = method.GetSignature(true);
+            var signature = method.GetSignature(false);
 
             Assert.AreEqual("TestMethod(firstParam)", signature);
         }

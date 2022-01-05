@@ -2,16 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-using System;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 
 namespace Eltons.ReflectionKit
 {
-    public class MethodSignature : MethodBaseSignature
+    public class ConstructorMethodSignature : MethodBaseSignature
     {
-        public string Build(MethodInfo method, bool invokable)
+        public string Build(ConstructorInfo method, bool invokable)
         {
             var signatureBuilder = new StringBuilder();
 
@@ -19,12 +17,10 @@ namespace Eltons.ReflectionKit
             if (!invokable)
             {
                 signatureBuilder.Append(BuildAccessor(method));
-                signatureBuilder.Append(TypeSignature.Build(method.ReturnType));
-                signatureBuilder.Append(" ");
             }
 
             // Add method name
-            signatureBuilder.Append(method.Name);
+            signatureBuilder.Append(method.DeclaringType.Name);
 
             // Add method generics
             if (method.IsGenericMethod)
