@@ -2,20 +2,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-using System.Text;
+using System;
 using System.Linq;
 using System.Reflection;
-using System;
+using System.Text;
 
 namespace Eltons.ReflectionKit
 {
     public static class MethodSignature
     {
-        public static string Build(MethodInfo method, bool invokable) {
+        public static string Build(MethodInfo method, bool invokable)
+        {
             var signatureBuilder = new StringBuilder();
 
             // Add our method accessors if it's not invokable
-            if (!invokable) {
+            if (!invokable)
+            {
                 signatureBuilder.Append(BuildAccessor(method));
                 signatureBuilder.Append(TypeSignature.Build(method.ReturnType));
                 signatureBuilder.Append(" ");
@@ -25,7 +27,8 @@ namespace Eltons.ReflectionKit
             signatureBuilder.Append(method.Name);
 
             // Add method generics
-            if (method.IsGenericMethod) {
+            if (method.IsGenericMethod)
+            {
                 signatureBuilder.Append(BuildGenerics(method));
             }
 
@@ -35,19 +38,27 @@ namespace Eltons.ReflectionKit
             return signatureBuilder.ToString();
         }
 
-        public static string BuildAccessor(MethodInfo method) {
+        public static string BuildAccessor(MethodInfo method)
+        {
             string signature = null;
 
-            if (method.IsAssembly) {
+            if (method.IsAssembly)
+            {
                 signature = "internal ";
 
                 if (method.IsFamily)
                     signature += "protected ";
-            } else if (method.IsPublic) {
+            }
+            else if (method.IsPublic)
+            {
                 signature = "public ";
-            } else if (method.IsPrivate) {
+            }
+            else if (method.IsPrivate)
+            {
                 signature = "private ";
-            } else if (method.IsFamily) {
+            }
+            else if (method.IsFamily)
+            {
                 signature = "protected ";
             }
 
@@ -57,24 +68,20 @@ namespace Eltons.ReflectionKit
             return signature;
         }
 
-        public static string BuildGenerics(MethodInfo method) {
-            if (method == null) throw new ArgumentNullException(nameof(method));
-            if (!method.IsGenericMethod) throw new ArgumentException($"{method.Name} is not generic.");
-
-            return TypeSignature.BuildGenerics(method.GetGenericArguments());
-        }
-
-        public static string BuildArguments(MethodInfo method, bool invokable) {
+        public static string BuildArguments(MethodInfo method, bool invokable)
+        {
             var isExtensionMethod = method.IsDefined(typeof(System.Runtime.CompilerServices.ExtensionAttribute), false);
             var methodParameters = method.GetParameters().AsEnumerable();
 
             // If this signature is designed to be invoked and it's an extension method
-            if (isExtensionMethod && invokable) {
+            if (isExtensionMethod && invokable)
+            {
                 // Skip the first argument
                 methodParameters = methodParameters.Skip(1);
             }
 
-            var methodParameterSignatures = methodParameters.Select(param => {
+            var methodParameterSignatures = methodParameters.Select(param =>
+            {
                 var signature = string.Empty;
 
                 if (param.ParameterType.IsByRef)
@@ -84,7 +91,8 @@ namespace Eltons.ReflectionKit
                 else if (isExtensionMethod && param.Position == 0)
                     signature = "this ";
 
-                if (!invokable) {
+                if (!invokable)
+                {
                     signature += TypeSignature.Build(param.ParameterType) + " ";
                 }
 
@@ -96,6 +104,14 @@ namespace Eltons.ReflectionKit
             var methodParameterString = "(" + string.Join(", ", methodParameterSignatures) + ")";
 
             return methodParameterString;
+        }
+
+        public static string BuildGenerics(MethodInfo method)
+        {
+            if (method == null) throw new ArgumentNullException(nameof(method));
+            if (!method.IsGenericMethod) throw new ArgumentException($"{method.Name} is not generic.");
+
+            return TypeSignature.BuildGenerics(method.GetGenericArguments());
         }
     }
 }

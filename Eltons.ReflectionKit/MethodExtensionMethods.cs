@@ -8,7 +8,8 @@ namespace Eltons.ReflectionKit
 {
     public static class MethodExtensionMethods
     {
-        public static string GetSignature(this MethodInfo method, bool isInvokable) {
+        public static string GetSignature(this MethodInfo method, bool isInvokable)
+        {
             return MethodSignature.Build(method, isInvokable);
         }
     }

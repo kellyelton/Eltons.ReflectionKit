@@ -7,18 +7,19 @@ using System.Reflection;
 
 namespace Eltons.ReflectionKit.Tests
 {
-    public class Requirement
+    public static class RequirmentExtensionMethods
     {
-        [Requirement("public void CanReturnVoid()", "CanReturnVoid()")]
-        public void CanReturnVoid() {
-
+        public static RequirementAttribute GetRequirement(this MethodInfo method)
+        {
+            return method.GetCustomAttribute<RequirementAttribute>();
         }
     }
 
-    public static class RequirmentExtensionMethods
+    public class Requirement
     {
-        public static RequirementAttribute GetRequirement(this MethodInfo method) {
-            return method.GetCustomAttribute<RequirementAttribute>();
+        [Requirement("public void CanReturnVoid()", "CanReturnVoid()")]
+        public void CanReturnVoid()
+        {
         }
     }
 
@@ -27,12 +28,14 @@ namespace Eltons.ReflectionKit.Tests
         AllowMultiple = false)]
     public sealed class RequirementAttribute : Attribute
     {
-        public RequirementAttribute(string expectedSignature, string expectedInvokeableSignature) {
+        public RequirementAttribute(string expectedSignature, string expectedInvokeableSignature)
+        {
             ExpectedSignature = expectedSignature;
             ExpectedInvokeableSignature = expectedInvokeableSignature;
         }
 
-        public string ExpectedSignature { get; set; }
         public string ExpectedInvokeableSignature { get; set; }
+
+        public string ExpectedSignature { get; set; }
     }
 }
