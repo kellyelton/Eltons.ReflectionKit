@@ -8,19 +8,21 @@ namespace Eltons.ReflectionKit
 {
     public static class TypeExtensionMethods
     {
-        public static bool IsNullable(this Type type, out Type underlyingType) {
-            underlyingType = Nullable.GetUnderlyingType(type);
-            return underlyingType != null;
-        }
-
         /// <summary>
         /// Is this type a generic type
         /// </summary>
         /// <param name="type"></param>
         /// <returns>True if generic, otherwise False</returns>
-        public static bool IsGeneric(this Type type) {
+        public static bool IsGeneric(this Type type)
+        {
             return type.IsGenericType
                 && type.Name.Contains("`");//TODO: Figure out why IsGenericType isn't good enough and document (or remove) this condition
+        }
+
+        public static bool IsNullable(this Type type, out Type underlyingType)
+        {
+            underlyingType = Nullable.GetUnderlyingType(type);
+            return underlyingType != null;
         }
     }
 }

@@ -15,7 +15,8 @@ namespace Eltons.ReflectionKit
         /// </summary>
         /// <param name="type">Type. May be generic or <see cref="Nullable{T}"/></param>
         /// <returns>Fully qualified signature</returns>
-        public static string Build(Type type) {
+        public static string Build(Type type)
+        {
             var isNullableType = type.IsNullable(out var underlyingNullableType);
 
             var signatureType = isNullableType
@@ -26,12 +27,14 @@ namespace Eltons.ReflectionKit
 
             var signature = GetQualifiedTypeName(signatureType);
 
-            if (isGenericType) {
+            if (isGenericType)
+            {
                 // Add the generic arguments
                 signature += BuildGenerics(signatureType.GetGenericArguments());
             }
 
-            if (isNullableType) {
+            if (isNullableType)
+            {
                 signature += "?";
             }
 
@@ -43,7 +46,8 @@ namespace Eltons.ReflectionKit
         /// </summary>
         /// <param name="genericArgumentTypes"></param>
         /// <returns>Generic type signature like &lt;Type, ...&gt;</returns>
-        public static string BuildGenerics(IEnumerable<Type> genericArgumentTypes) {
+        public static string BuildGenerics(IEnumerable<Type> genericArgumentTypes)
+        {
             var argumentSignatures = genericArgumentTypes.Select(Build);
 
             return "<" + string.Join(", ", argumentSignatures) + ">";
@@ -55,18 +59,25 @@ namespace Eltons.ReflectionKit
         /// </summary>
         /// <param name="type"></param>
         /// <returns>The fully qualified name for <paramref name="type"/></returns>
-        public static string GetQualifiedTypeName(Type type) {
-            switch (type.Name) {
+        public static string GetQualifiedTypeName(Type type)
+        {
+            switch (type.Name)
+            {
                 case "String":
                     return "string";
+
                 case "Int32":
                     return "int";
+
                 case "Decimal":
                     return "decimal";
+
                 case "Object":
                     return "object";
+
                 case "Void":
                     return "void";
+
                 case "Boolean":
                     return "bool";
             }
@@ -76,19 +87,19 @@ namespace Eltons.ReflectionKit
                 ? type.Name
                 : type.FullName;
 
-            if(type.IsGeneric())
+            if (type.IsGeneric())
                 signature = RemoveGenericTypeNameArgumentCount(signature);
 
             return signature;
         }
-
 
         /// <summary>
         /// This removes the `{argumentcount} from a the signature of a generic type
         /// </summary>
         /// <param name="genericTypeSignature">Signature of a generic type</param>
         /// <returns><paramref name="genericTypeSignature"/> without any argument count</returns>
-        public static string RemoveGenericTypeNameArgumentCount(string genericTypeSignature) {
+        public static string RemoveGenericTypeNameArgumentCount(string genericTypeSignature)
+        {
             return genericTypeSignature.Substring(0, genericTypeSignature.IndexOf('`'));
         }
     }
