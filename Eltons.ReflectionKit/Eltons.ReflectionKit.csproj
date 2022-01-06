@@ -11,13 +11,14 @@ It prints the full signature of a method from a MethodInfo.</Description>
     <RepositoryUrl>https://github.com/kellyelton/Eltons.ReflectionKit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>MethodInfo</PackageTags>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
     <AnalysisLevel>latest</AnalysisLevel>
     <Authors>kellyelton</Authors>
     <Company />
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
+    <PackageReleaseNotes>Added support for Constructors (Thanks https://github.com/3DExtended )</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
