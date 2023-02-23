@@ -73,6 +73,7 @@ namespace Eltons.ReflectionKit
                     return "decimal";
 
                 case "Object":
+                case "Object&":
                     return "object";
 
                 case "Void":
