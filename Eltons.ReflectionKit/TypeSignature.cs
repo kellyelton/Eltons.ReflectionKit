@@ -69,10 +69,14 @@ namespace Eltons.ReflectionKit
                 case "Int32":
                     return "int";
 
+                case "Double":
+                    return "double";
+
                 case "Decimal":
                     return "decimal";
 
                 case "Object":
+                case "Object&":
                     return "object";
 
                 case "Void":
